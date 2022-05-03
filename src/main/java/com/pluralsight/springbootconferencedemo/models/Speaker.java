@@ -11,13 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import org.hibernate.annotations.Type;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity(name = "speakers")
 public class Speaker implements Serializable {
 
@@ -47,5 +55,6 @@ public class Speaker implements Serializable {
   private byte[] photo;
 
   @ManyToMany(mappedBy = "speakers")
+  @JsonIgnore
   private List<Session> sessions;
 }

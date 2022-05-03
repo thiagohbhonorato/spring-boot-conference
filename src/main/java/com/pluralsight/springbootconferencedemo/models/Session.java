@@ -12,11 +12,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
 @Entity(name = "sessions")
 public class Session implements Serializable {
 
@@ -35,6 +42,6 @@ public class Session implements Serializable {
   private Integer length;
 
   @ManyToMany
-  @JoinTable(name = "session_speakers", joinColumns = @JoinColumn(referencedColumnName = "session_id"), inverseJoinColumns = @JoinColumn(referencedColumnName = "speaker_id"))
+  @JoinTable(name = "session_speakers", joinColumns = @JoinColumn(name = "session_id"), inverseJoinColumns = @JoinColumn(name = "speaker_id"))
   private List<Speaker> speakers;
 }
